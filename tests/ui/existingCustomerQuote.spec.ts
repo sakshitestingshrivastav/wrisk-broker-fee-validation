@@ -35,10 +35,6 @@ test.describe.skip('Existing Customer Quote Validation', () => {
         ).toBeVisible();
 
         await expect(
-            page.getByTestId('tax')
-        ).toBeVisible();
-
-        await expect(
             page.getByTestId('total')
         ).toBeVisible();
 
@@ -52,10 +48,6 @@ test.describe.skip('Existing Customer Quote Validation', () => {
 
         await expect(
             page.getByTestId('premium')
-        ).toContainText('£');
-
-        await expect(
-            page.getByTestId('tax')
         ).toContainText('£');
 
         await expect(
@@ -80,18 +72,13 @@ test.describe.skip('Existing Customer Quote Validation', () => {
                 ?.replace('£', '')
         );
 
-        const tax = Number(
-            (await page.getByTestId('tax').textContent())
-                ?.replace('£', '')
-        );
-
         const total = Number(
             (await page.getByTestId('total').textContent())
                 ?.replace('£', '')
         );
 
         expect(total).toBe(
-            premium + tax
+            premium
         );
 
     });

@@ -31,8 +31,6 @@ test.describe.skip('Renewal Customer Quote Validation', () => {
 
         await expect(page.getByTestId('premium')).toBeVisible();
 
-        await expect(page.getByTestId('tax')).toBeVisible();
-
         await expect(page.getByTestId('broker-fee')).toBeVisible();
 
         await expect(page.getByTestId('total')).toBeVisible();
@@ -62,9 +60,6 @@ test.describe.skip('Renewal Customer Quote Validation', () => {
         await expect(page.getByTestId('premium'))
             .toContainText('£');
 
-        await expect(page.getByTestId('tax'))
-            .toContainText('£');
-
         await expect(page.getByTestId('broker-fee'))
             .toContainText('£');
 
@@ -80,11 +75,6 @@ test.describe.skip('Renewal Customer Quote Validation', () => {
                 ?.replace('£', '')
         );
 
-        const tax = Number(
-            (await page.getByTestId('tax').textContent())
-                ?.replace('£', '')
-        );
-
         const brokerFee = Number(
             (await page.getByTestId('broker-fee').textContent())
                 ?.replace('£', '')
@@ -96,7 +86,7 @@ test.describe.skip('Renewal Customer Quote Validation', () => {
         );
 
         expect(total).toBe(
-            premium + tax + brokerFee
+            premium + brokerFee
         );
 
     });

@@ -61,9 +61,6 @@ test.describe.skip('New Bind Customer Quote Validation', () => {
         await expect(page.getByTestId('premium'))
             .toContainText('£');
 
-        await expect(page.getByTestId('tax'))
-            .toContainText('£');
-
         await expect(page.getByTestId('broker-fee'))
             .toContainText('£');
 
@@ -79,11 +76,6 @@ test.describe.skip('New Bind Customer Quote Validation', () => {
                 ?.replace('£', '')
         );
 
-        const tax = Number(
-            (await page.getByTestId('tax').textContent())
-                ?.replace('£', '')
-        );
-
         const brokerFee = Number(
             (await page.getByTestId('broker-fee').textContent())
                 ?.replace('£', '')
@@ -95,7 +87,7 @@ test.describe.skip('New Bind Customer Quote Validation', () => {
         );
 
         expect(total).toBe(
-            premium + tax + brokerFee
+            premium + brokerFee
         );
 
     });

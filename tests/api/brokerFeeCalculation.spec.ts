@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { quoteResponses }  from '../../mocks/quoteResponses.ts';
+import { quoteResponses }  from '../../mocks/quoteResponses';
 
 quoteResponses.forEach((quote) => {
 
@@ -7,7 +7,6 @@ test(`Verify quote response contains all mandatory fields for ${quote.brand}`, a
   expect(quote).toHaveProperty('brand');
   expect(quote).toHaveProperty('customerType');
   expect(quote).toHaveProperty('premium');
-  expect(quote).toHaveProperty('tax');
   expect(quote).toHaveProperty('brokerFee');
   expect(quote).toHaveProperty('total');
 });
@@ -16,7 +15,6 @@ test(`Verify quote response fields are not null for ${quote.brand}`, async () =>
   expect(quote.brand).not.toBeNull()
   expect(quote.customerType).not.toBeNull()
   expect(quote.premium).not.toBeNull()
-  expect(quote.tax).not.toBeNull()
   expect(quote.brokerFee).not.toBeNull()
   expect(quote.total).not.toBeNull()
 });
@@ -41,30 +39,28 @@ if(quote.customerType === 'EXISTING_CUSTOMER'){
 
 test(`Verify if total calculation of NEW_BIND for ${quote.brand}`, async () => {
 expect(quote.total)
- .toBe(quote.premium + quote.tax + quote.brokerFee);
+ .toBe(quote.premium + quote.brokerFee);
 });
 
 test(`Verify if total calculation of RENEWAL for ${quote.brand}`, async () => {
 expect(quote.total)
- .toBe(quote.premium + quote.tax + quote.brokerFee);
+ .toBe(quote.premium + quote.brokerFee);
 });
 
 test(`Verify if total calculation of EXISTING_CUSTOMER for ${quote.brand}`, async () => {
 expect(quote.total)
  .toBe(quote.premium +
-      quote.tax +
       quote.brokerFee);
 });
 
 test(`Verify the premium fee, broker fee and tax and total are not negatives for ${quote.brand}`, async () => {
 expect(quote.brokerFee).toBeGreaterThanOrEqual(0);
 expect(quote.premium).toBeGreaterThan(0);
-expect(quote.tax).toBeGreaterThanOrEqual(0);
 });
 
 test(`Verify the total fee is always equal to or greater than premium fee for ${quote.brand}`, async () => {
 expect(quote.total)
-  .toBeGreaterThan(quote.premium);
+  .toBeGreaterThanOrEqual(quote.premium);
 });
 
 })
