@@ -87,9 +87,8 @@ Example:
   brand: 'Volvo',
   customerType: 'NEW_BIND',
   premium: 100,
-  tax: 5,
   brokerFee: 1.25,
-  total: 106.25
+  total: 101.25
 }
 ```
 
@@ -161,6 +160,8 @@ The UI tests demonstrate:
 
 UI tests are intentionally skipped and are not executed as part of the automated run.
 
+Page Object Model structure included for future UI coverage.
+
 This prevents failures caused by unavailable environments while still demonstrating the proposed automation approach.
 
 ---
@@ -216,9 +217,10 @@ npx playwright test tests/api/brokerFeeCalculation.spec.ts
 ```
 
 Generate and Open Report
+
 ```bash
 npx playwright show-report
----
+```
 
 ## Notes
 * Mocked responses were used as permitted by the assessment requirements.
@@ -231,4 +233,3 @@ npx playwright show-report
 
 Sakshi Shrivastav
 
-Senior QA Automation Engineer

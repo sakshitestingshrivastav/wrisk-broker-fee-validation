@@ -19,6 +19,12 @@ test(`Verify quote response fields are not null for ${quote.brand}`, async () =>
   expect(quote.total).not.toBeNull()
 });
 
+test(`Verify financial fields are numeric for ${quote.brand}`, () => {
+    expect(typeof quote.premium).toBe('number');
+    expect(typeof quote.brokerFee).toBe('number');
+    expect(typeof quote.total).toBe('number');
+});
+
 test(`Verify if the broker fee in the response is NEW BIND then broker fee has to be 1.25 for ${quote.brand}`, async () => {
 if(quote.customerType === 'NEW_BIND'){
    expect(quote.brokerFee).toBe(1.25);
@@ -37,23 +43,12 @@ if(quote.customerType === 'EXISTING_CUSTOMER'){
 }
 });
 
-test(`Verify if total calculation of NEW_BIND for ${quote.brand}`, async () => {
+test(`Verify total calculation with first api ${quote.customerType} - ${quote.brand}`, async () => {
 expect(quote.total)
  .toBe(quote.premium + quote.brokerFee);
 });
 
-test(`Verify if total calculation of RENEWAL for ${quote.brand}`, async () => {
-expect(quote.total)
- .toBe(quote.premium + quote.brokerFee);
-});
-
-test(`Verify if total calculation of EXISTING_CUSTOMER for ${quote.brand}`, async () => {
-expect(quote.total)
- .toBe(quote.premium +
-      quote.brokerFee);
-});
-
-test(`Verify the premium fee, broker fee and tax and total are not negatives for ${quote.brand}`, async () => {
+test(`Verify the premium fee, broker fee and total are not negatives for ${quote.brand}`, async () => {
 expect(quote.brokerFee).toBeGreaterThanOrEqual(0);
 expect(quote.premium).toBeGreaterThan(0);
 });
