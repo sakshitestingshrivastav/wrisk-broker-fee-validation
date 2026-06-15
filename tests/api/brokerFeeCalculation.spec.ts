@@ -43,7 +43,7 @@ if(quote.customerType === 'EXISTING_CUSTOMER'){
 }
 });
 
-test(`Verify total calculation with first api ${quote.customerType} - ${quote.brand}`, async () => {
+test(`Verify total calculation with api ${quote.customerType} - ${quote.brand}`, async () => {
 expect(quote.total)
  .toBe(quote.premium + quote.brokerFee);
 });
